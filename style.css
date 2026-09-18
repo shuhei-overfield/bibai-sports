@@ -255,6 +255,18 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .teaser-banner:hover { background: linear-gradient(120deg, #0a0c14 0%, #1b1f38 55%, #0a0c14 100%); }
 
+.teaser-banner-img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center 65%;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 180, 92, 0.4);
+  /* 実物画像はシルエット加工済み。CSSフィルターでさらにコントラストを強調 */
+  filter: contrast(1.25) brightness(1.15) saturate(0.85);
+}
+
 .teaser-banner-badge {
   flex-shrink: 0;
   font-size: 0.68rem;

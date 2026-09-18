@@ -96,60 +96,80 @@ a { color: inherit; text-decoration: none; }
 }
 .sp-kicker i { animation: sp-blink 1.6s ease-in-out infinite; }
 
-.sp-headline {
-  font-size: 1.5rem;
-  font-weight: 900;
-  line-height: 1.7;
-  color: var(--sp-text);
+/* ---------- Main visual (シルエット画像 + COMING SOON + キャッチコピー) ---------- */
+.sp-visual {
+  position: relative;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--sp-border);
+  box-shadow: 0 0 0 0 rgba(217, 180, 92, 0.3);
+  animation: sp-visual-glow 3s ease-in-out infinite;
 }
 
-.sp-headline .sp-accent {
+@keyframes sp-visual-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 180, 92, 0.18); }
+  50% { box-shadow: 0 0 26px 2px rgba(217, 180, 92, 0.22); }
+}
+
+.sp-visual-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 65%;
+  /* ロゴが判別できないよう加工済みの画像に、さらにCSSフィルターで
+     コントラスト・明度を調整し、影絵らしいムードを強める */
+  filter: contrast(1.25) brightness(1.12) saturate(0.85);
+}
+
+.sp-visual-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5, 6, 10, 0.94) 0%, rgba(5, 6, 10, 0.55) 45%, rgba(5, 6, 10, 0.05) 75%);
+}
+
+.sp-visual-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 20px 22px;
+  text-align: center;
+}
+
+.sp-visual-tag {
   display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
   color: var(--sp-navy-deep);
   background: linear-gradient(120deg, var(--sp-gold-light), var(--sp-gold-deep));
-  padding: 2px 10px;
-  border-radius: 6px;
-  margin: 4px 0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  animation: sp-blink 1.8s ease-in-out infinite;
 }
 
-.sp-headline .sp-mystery {
-  font-family: "Georgia", serif;
-}
-
-/* ---------- Mystery box ---------- */
-.sp-mystery-box {
-  max-width: 280px;
-  margin: 34px auto 0;
-  padding: 28px 20px;
-  border: 2px dashed var(--sp-border);
-  border-radius: 18px;
-  background: rgba(217, 180, 92, 0.05);
-}
-
-.sp-mystery-mark {
-  font-size: 3rem;
+.sp-visual-copy {
+  font-size: 1.05rem;
   font-weight: 900;
-  color: var(--sp-gold);
-  line-height: 1;
-  animation: sp-pulse-glow 2.4s ease-in-out infinite;
+  line-height: 1.6;
+  color: var(--sp-text);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .sp-mystery-caption {
-  margin-top: 10px;
+  margin-top: 14px;
+  text-align: center;
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--sp-text-soft);
   letter-spacing: 0.04em;
 }
 
-@keyframes sp-pulse-glow {
-  0%, 100% { text-shadow: 0 0 6px rgba(217, 180, 92, 0.25); opacity: 0.85; }
-  50% { text-shadow: 0 0 22px rgba(217, 180, 92, 0.65); opacity: 1; }
-}
-
 @keyframes sp-blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  50% { opacity: 0.55; }
 }
 
 /* ---------- Sections ---------- */
@@ -322,7 +342,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (min-width: 640px) {
-  .sp-headline { font-size: 2rem; }
+  .sp-visual-copy { font-size: 1.5rem; }
+  .sp-visual-overlay { padding: 28px 32px 34px; }
   .sp-keyword-grid { grid-template-columns: 1fr 1fr; }
   .sp-cta-row { flex-direction: row; justify-content: center; }
   .sp-btn { width: auto; }
