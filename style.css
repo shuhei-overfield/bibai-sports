@@ -238,6 +238,59 @@ ul { list-style: none; margin: 0; padding: 0; }
 .produced-by-ribbon strong { font-weight: 900; }
 
 /* =========================================================
+   Teaser banner (special.html への予告バナー)
+   黒 × ゴールド／ネイビーでメインの配色から意図的に差別化
+   ========================================================= */
+.teaser-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 13px 20px;
+  background: linear-gradient(120deg, #05060a 0%, #14172a 55%, #05060a 100%);
+  border-bottom: 2px solid #caa24a;
+  cursor: pointer;
+}
+.teaser-banner:hover { background: linear-gradient(120deg, #0a0c14 0%, #1b1f38 55%, #0a0c14 100%); }
+
+.teaser-banner-badge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #14151d;
+  background: linear-gradient(120deg, #f3d27a, #caa24a);
+  padding: 4px 12px;
+  border-radius: 999px;
+  animation: teaser-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes teaser-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 210, 122, 0.5); }
+  50% { box-shadow: 0 0 10px 2px rgba(243, 210, 122, 0.7); }
+}
+
+.teaser-banner-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f3e8c8;
+  line-height: 1.5;
+}
+
+.teaser-banner-cta {
+  flex-shrink: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #14151d;
+  background: linear-gradient(120deg, #f3d27a, #caa24a);
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* =========================================================
    Header / Nav
    ========================================================= */
 .site-header {
