@@ -281,6 +281,9 @@ a { color: inherit; text-decoration: none; }
   color: var(--sp-text);
   line-height: 1.9;
 }
+.sp-message-text + .sp-message-text {
+  margin-top: 16px;
+}
 
 .sp-message-attr {
   margin-top: 18px;
