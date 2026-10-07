@@ -175,6 +175,43 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.04em;
 }
 
+/* 実写ヒーロー（製品名公開後）: 切り抜き画像ではないので cover で全面に敷く */
+.sp-visual--photo { aspect-ratio: 16 / 10; }
+.sp-visual-img--cover { object-fit: cover; }
+
+.sp-visual-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sp-visual-tags .sp-visual-tag { margin-bottom: 0; }
+
+.sp-visual-tag--ghost {
+  background: rgba(5, 6, 10, 0.55);
+  border: 1px solid var(--sp-border);
+  color: var(--sp-gold-light);
+  animation: none;
+}
+
+.sp-event-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--sp-gold-light);
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.sp-visual-note {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sp-text-soft);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
 @keyframes sp-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.55; }
@@ -221,6 +258,325 @@ a { color: inherit; text-decoration: none; }
   color: var(--sp-text);
   line-height: 1.6;
 }
+
+/* 計測項目（球速・回転数・回転軸・変化量）のコンパクト版カード */
+.sp-keyword-grid--4 { margin-top: 20px; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sp-keyword-grid--4 .sp-keyword-card { padding: 18px 12px; border-radius: 12px; }
+.sp-keyword-grid--4 .sp-keyword-card i { font-size: 1.2rem; margin-bottom: 8px; }
+.sp-keyword-grid--4 .sp-keyword-card p { font-size: 0.92rem; }
+
+/* ---------- Overview / info cards ---------- */
+.sp-overview-grid {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.sp-info-card {
+  background: linear-gradient(155deg, var(--sp-navy-mid), var(--sp-navy-deep));
+  border: 1px solid var(--sp-border);
+  border-radius: 14px;
+  padding: 22px 20px;
+}
+
+.sp-info-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--sp-gold);
+  margin-bottom: 10px;
+}
+
+.sp-info-main {
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.5;
+  color: var(--sp-text);
+}
+
+.sp-info-sub {
+  margin-top: 6px;
+  font-size: 0.86rem;
+  color: var(--sp-text-soft);
+}
+
+.sp-info-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(217, 180, 92, 0.08);
+  border: 1px solid var(--sp-border);
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--sp-gold-light);
+}
+.sp-info-alert i { margin-top: 4px; flex-shrink: 0; }
+
+/* ---------- Program / schedule ---------- */
+.sp-program {
+  background: linear-gradient(155deg, var(--sp-navy-mid), var(--sp-navy-deep));
+  border: 1px solid var(--sp-border);
+  border-radius: 14px;
+  padding: 24px 20px;
+}
+
+.sp-program-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sp-program-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--sp-text);
+}
+
+.sp-program-time {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--sp-gold-light);
+  letter-spacing: 0.02em;
+}
+
+.sp-program-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.sp-program-tags span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--sp-gold-light);
+  border: 1px solid var(--sp-border);
+  background: rgba(217, 180, 92, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.sp-program-desc {
+  margin-top: 16px;
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--sp-text-soft);
+}
+
+.sp-slot-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.sp-slot-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(217, 180, 92, 0.18);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--sp-text);
+  letter-spacing: 0.02em;
+}
+
+.sp-slot-no {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(120deg, var(--sp-gold-light), var(--sp-gold-deep));
+  color: var(--sp-navy-deep);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.sp-slot-note {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--sp-text-soft);
+}
+
+/* ---------- Entry CTA ---------- */
+.sp-entry-cta {
+  text-align: center;
+  border: 1px solid var(--sp-gold);
+  border-radius: 18px;
+  padding: 28px 22px;
+  background: rgba(217, 180, 92, 0.06);
+  margin-bottom: 28px;
+}
+
+.sp-entry-cta-lead {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--sp-gold-light);
+}
+
+.sp-entry-cta-sub {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: 0.84rem;
+  color: var(--sp-text-soft);
+  line-height: 1.8;
+}
+
+.sp-btn-lg {
+  font-size: 1rem;
+  padding: 17px 36px;
+  max-width: 380px;
+  box-shadow: 0 8px 24px rgba(217, 180, 92, 0.25);
+}
+
+.sp-entry-cta-note {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--sp-text-soft);
+}
+
+/* ---------- Notice list ---------- */
+.sp-notice-list {
+  list-style: none;
+  counter-reset: sp-notice;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.sp-notice-list li {
+  counter-increment: sp-notice;
+  position: relative;
+  padding: 16px 18px 16px 48px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(217, 180, 92, 0.18);
+}
+
+.sp-notice-list li::before {
+  content: counter(sp-notice);
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(120deg, var(--sp-gold-light), var(--sp-gold-deep));
+  color: var(--sp-navy-deep);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.sp-notice-head {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--sp-gold-light);
+  margin-bottom: 6px;
+}
+
+.sp-notice-body {
+  font-size: 0.86rem;
+  line-height: 1.9;
+  color: var(--sp-text-soft);
+}
+.sp-notice-body strong { color: var(--sp-text); font-weight: 800; }
+
+/* ---------- Contact box ---------- */
+.sp-contact-box {
+  margin-top: 26px;
+  text-align: center;
+  padding: 22px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--sp-border);
+  background: linear-gradient(155deg, var(--sp-navy-mid), var(--sp-navy-deep));
+}
+
+.sp-contact-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--sp-gold);
+  margin-bottom: 10px;
+}
+
+.sp-contact-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--sp-gold-light);
+  letter-spacing: 0.02em;
+}
+.sp-contact-tel:hover { filter: brightness(1.1); }
+
+.sp-contact-sub {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--sp-text-soft);
+}
+
+/* ---------- Staff card ---------- */
+.sp-staff-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 26px 22px;
+  border-radius: 14px;
+  border: 1px solid var(--sp-border);
+  background: linear-gradient(155deg, var(--sp-navy-mid), var(--sp-navy-deep));
+}
+
+.sp-staff-photo {
+  width: 92px;
+  height: 92px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--sp-border);
+}
+
+.sp-staff-org {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--sp-gold);
+}
+
+.sp-staff-name {
+  margin-top: 4px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--sp-text);
+}
+
+.sp-staff-desc {
+  margin-top: 12px;
+  font-size: 0.86rem;
+  line-height: 1.9;
+  color: var(--sp-text-soft);
+}
+.sp-staff-desc strong { color: var(--sp-gold-light); font-weight: 700; }
 
 /* ---------- Announcement callout ---------- */
 .sp-announce {
@@ -358,6 +714,16 @@ a { color: inherit; text-decoration: none; }
   .sp-keyword-grid { grid-template-columns: 1fr 1fr; }
   .sp-cta-row { flex-direction: row; justify-content: center; }
   .sp-btn { width: auto; }
+
+  .sp-visual--photo { aspect-ratio: 21 / 9; }
+  .sp-event-title { font-size: 0.82rem; }
+  .sp-keyword-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .sp-overview-grid { grid-template-columns: 1fr 1fr; }
+  .sp-slot-list { grid-template-columns: 1fr 1fr; }
+  .sp-contact-tel { font-size: 1.8rem; }
+
+  .sp-staff-card { flex-direction: row; text-align: left; gap: 24px; }
+  .sp-staff-photo { width: 110px; height: 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -243,10 +243,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 .produced-by-ribbon strong { font-weight: 900; }
 
 /* =========================================================
-   Teaser banner (special.html への予告バナー)
-   背景を透過処理済みのPNG（機器のみの切り抜き）を、ダークUIカード
-   にそのまま乗せる。ロゴは画像側に焼き込んだ黒帯で隠してあるため
-   CSS側でのフィルター・ブレンド加工は不要。
+   Teaser banner (special.html への告知バナー)
+   イベント開催決定に伴い、製品名を伏せた切り抜き画像から実写の
+   ヒーロー写真に差し替え。写真は cover で全面に敷く。
    ========================================================= */
 .teaser-banner-wrap {
   background: #0a0a0a;
@@ -348,7 +347,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .teaser-banner-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
 }
 
