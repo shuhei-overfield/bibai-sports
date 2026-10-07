@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var NEXT_SCHEDULE = {
     am: [
       { date: '2026-10-05', time: '9:30', text: '10/5', weekday: '（月）' },
-      { date: '2026-10-13', time: '9:30', text: '10/13', weekday: '（火）' },
       { date: '2026-10-26', time: '9:30', text: '10/26', weekday: '（月）' }
     ],
     pm: [
