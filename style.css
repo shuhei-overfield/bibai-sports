@@ -326,11 +326,13 @@ h2.section-head--dark-title { color: var(--color-white); }
 }
 
 .hero-lead {
-  font-size: 0.96rem;
-  line-height: 1.9;
-  max-width: 28em;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  max-width: 24em;
   margin: 0 auto;
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--color-white);
 }
 
 .hero-cta {
@@ -1408,6 +1410,7 @@ h2.section-head--dark-title { color: var(--color-white); }
   .hero { padding: 140px 0 120px; }
   .hero-title { font-size: 4.2rem; }
   .hero-tagline { font-size: 1.2rem; }
+  .hero-lead { font-size: 1.5rem; max-width: 30em; }
   .hero-cta { flex-direction: row; justify-content: center; }
 
   .feature-grid { grid-template-columns: repeat(3, 1fr); }
