@@ -194,6 +194,110 @@ ul { list-style: none; margin: 0; padding: 0; }
   max-width: 42em;
 }
 
+/* =========================================================
+   About OVERFIELD (代表メッセージ / ブランドステートメント)
+   地域の常駐サポート（ivory・親しみやすさ）と、OVERFIELDの
+   ブランド理念（navy・専門性）が隣り合うことで互いを引き立てる
+   構成。直前の #current（明るいトーン）に対して、ここだけ紺地に
+   切り替え、メッセージに重みを持たせる。
+   ========================================================= */
+.about-section {
+  background: linear-gradient(155deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
+  color: var(--color-white);
+}
+
+.about-grid {
+  display: grid;
+  gap: 36px;
+}
+
+.about-portrait {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-portrait-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-mint);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.about-portrait-caption {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.about-portrait-org {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--color-mint);
+}
+
+.about-portrait-name {
+  font-size: 1.04rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.about-kicker {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-mint-pale);
+}
+
+.about-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.about-statement {
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 800;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  margin: 16px 0 26px;
+  color: var(--color-white);
+}
+
+.about-text {
+  display: grid;
+  gap: 16px;
+}
+.about-text p {
+  font-size: 0.88rem;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.about-attr {
+  margin-top: 28px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--color-mint-pale);
+}
+
+@media (min-width: 640px) {
+  .about-grid {
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-portrait { position: sticky; top: 88px; }
+  .about-statement { font-size: 1.6rem; }
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
