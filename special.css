@@ -407,6 +407,18 @@ a { color: inherit; text-decoration: none; }
 }
 .sp-contact-tel:hover { filter: brightness(1.1); }
 
+.sp-contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--sp-text-soft);
+  word-break: break-all;
+}
+.sp-contact-email:hover { color: var(--sp-gold-light); }
+
 .sp-contact-sub {
   margin-top: 8px;
   font-size: 0.82rem;
