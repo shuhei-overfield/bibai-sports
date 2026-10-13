@@ -533,6 +533,37 @@ a { color: inherit; text-decoration: none; }
   text-align: right;
 }
 
+/* ---------- Gallery（当日の様子） ---------- */
+.sp-gallery {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sp-gallery-item {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--sp-border);
+  aspect-ratio: 4 / 3;
+}
+
+.sp-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ダークトーンのサイトに馴染ませるため、やや暗く彩度を落として
+     統一感を出す。ホバー時は少しだけ素の色味に近づける */
+  filter: brightness(0.82) saturate(0.85) contrast(1.05);
+  transition: filter 0.25s ease, transform 0.4s ease;
+}
+.sp-gallery-item:hover img {
+  filter: brightness(0.92) saturate(0.95) contrast(1.05);
+  transform: scale(1.04);
+}
+
 /* ---------- CTA ---------- */
 .sp-cta-row {
   display: flex;
@@ -581,6 +612,7 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 640px) {
   .sp-visual-copy { font-size: 1.5rem; }
   .sp-visual-overlay { padding: 28px 32px 34px; }
+  .sp-gallery { gap: 16px; }
   .sp-cta-row { flex-direction: row; justify-content: center; }
   .sp-btn { width: auto; }
 

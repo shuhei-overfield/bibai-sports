@@ -9,3 +9,12 @@ rapsodo-*.jpg
 # 制作時の参照用としてローカルにのみ保持）
 flyer.pdf
 bibai-vol2.png
+
+# スマートフォンからの生の写真・動画アップロード（未加工・高解像度のため
+# 公開リポジトリには含めない。サイト掲載用に images/ 配下へ最適化コピーを
+# 作成してから使用する）
+/IMG_*.JPG
+/IMG_*.jpg
+/IMG_*.HEIC
+/IMG_*.mov
+/IMG_*.MOV
