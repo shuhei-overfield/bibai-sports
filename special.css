@@ -550,7 +550,15 @@ a { color: inherit; text-decoration: none; }
   aspect-ratio: 4 / 3;
 }
 
-.sp-gallery-item img {
+/* 動画は横長の実寸比率を活かし、2カラムをまたいで大きく見せる */
+.sp-gallery-item--video {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.sp-gallery-item img,
+.sp-gallery-item video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -562,6 +570,11 @@ a { color: inherit; text-decoration: none; }
 .sp-gallery-item:hover img {
   filter: brightness(0.92) saturate(0.95) contrast(1.05);
   transform: scale(1.04);
+}
+/* 動画はネイティブの再生コントロール操作を妨げないよう、拡大演出は
+   行わず明るさの変化のみに留める */
+.sp-gallery-item--video:hover video {
+  filter: brightness(0.92) saturate(0.95) contrast(1.05);
 }
 
 /* ---------- CTA ---------- */
