@@ -274,7 +274,7 @@ h2.section-head--dark-title { color: var(--color-white); }
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 124px 0 108px;
+  padding: 128px 0 136px;
   color: var(--color-white);
   text-align: center;
 }
@@ -332,14 +332,6 @@ h2.section-head--dark-title { color: var(--color-white); }
   letter-spacing: 0.08em;
   margin: 0 auto;
   color: var(--color-white);
-}
-
-.hero-cta {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
 }
 
 .hero-scroll {
@@ -1443,11 +1435,10 @@ h2.section-head--dark-title { color: var(--color-white); }
   .sp-only { display: none !important; }
   .pc-only { display: inline !important; }
 
-  .hero { padding: 168px 0 140px; }
+  .hero { padding: 172px 0 172px; }
   .hero-title { font-size: 4.6rem; }
   .hero-tagline { font-size: 0.95rem; }
   .hero-lead { font-size: 1.8rem; }
-  .hero-cta { flex-direction: row; justify-content: center; }
 
   .feature-grid { grid-template-columns: repeat(3, 1fr); }
   .schedule-grid { grid-template-columns: 1fr 1fr; }
