@@ -160,6 +160,24 @@ document.addEventListener('DOMContentLoaded', function () {
     archivePastScheduleDates();
   }
 
+  /* ---------- VOL card scheduled switch (VOL.2 10月 -> VOL.3 11月) ----------
+     2026-11-01 以降にこのページを開くと、「トレーニング室のご案内」の
+     開催スケジュールカード（#upcoming 内）を VOL.2（10月分）から
+     VOL.3（11月分・フライヤーPDFダウンロードボタン付き）に自動的に
+     差し替えます（閲覧者それぞれの端末の日時で判定するため、手動更新
+     は不要です）。
+     翌月以降も同じ仕組みを使う場合は、VOL_SWITCH_DATE と、HTML側の
+     対象カードの id（volCardOct / volCardNov）を書き換えてください。 */
+  var VOL_SWITCH_DATE = new Date('2026-11-01T00:00:00');
+  var volCardOct = document.getElementById('volCardOct');
+  var volCardNov = document.getElementById('volCardNov');
+
+  if (volCardOct && volCardNov) {
+    var isNovOrLater = today.getTime() >= VOL_SWITCH_DATE.getTime();
+    volCardOct.hidden = isNovOrLater;
+    volCardNov.hidden = !isNovOrLater;
+  }
+
   var scheduleDateEls = document.querySelectorAll('.schedule-dates li[data-date]');
 
   /* ---------- Next upcoming session banner ---------- */
