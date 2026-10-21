@@ -114,15 +114,39 @@ document.addEventListener('DOMContentLoaded', function () {
   // 1回目: 現在HTML上にある月（9月）の日程を対象に実行
   archivePastScheduleDates();
 
-  /* ---------- Scheduled monthly switch (9月 -> 10月 VOL.2) ----------
-     2026-10-02 以降にこのページを開くと、9月の常駐スケジュールを自動的に
-     10月「VOL.2」の日程に差し替えます（閲覧者それぞれの端末の日時で判定
-     するため、手動更新は不要です）。9月分は上の1回目のアーカイブ処理で
-     過去の実施実績として記録済みです。
-     翌月以降も同じ仕組みを使う場合は、SWITCH_DATE と NEXT_SCHEDULE の
-     中身を書き換えてください。 */
-  var SWITCH_DATE = new Date('2026-10-02T00:00:00');
-  var NEXT_SCHEDULE = {
+  /* ---------- Scheduled monthly switch: メインエリア（#training 常駐スケジュール）----------
+     「9月 -> 10月」「10月 -> 11月」のように、月が替わるたびに差し替え
+     ブロックを1つずつ追加していく方式。各ブロックは SWITCH_DATE 以降
+     であれば常駐スケジュールを該当月の日程に上書きするので、過去のブ
+     ロックから順に実行することで「訪問した月の最新スケジュール」が
+     正しく表示される（例: 11月に訪問した場合、10月ブロックが先に10月
+     分を書き込み、続けて11月ブロックがそれを11月分で上書きする）。
+     翌月以降も同じ仕組みを使う場合は、このパターンのまま新しいブロッ
+     クを下に追加してください（既存ブロックは消さずに残す）。 */
+  var renderScheduleList = function (ul, items, suffix) {
+    if (!ul) return;
+    ul.innerHTML = '';
+    items.forEach(function (item) {
+      var li = document.createElement('li');
+      li.setAttribute('data-date', item.date);
+      li.setAttribute('data-time', item.time);
+      li.setAttribute('data-label', item.text + item.weekday + suffix);
+      li.appendChild(document.createTextNode(item.text));
+
+      var span = document.createElement('span');
+      span.textContent = item.weekday;
+      li.appendChild(span);
+
+      ul.appendChild(li);
+    });
+  };
+
+  var scheduleDatesAMEl = document.getElementById('scheduleDatesAM');
+  var scheduleDatesPMEl = document.getElementById('scheduleDatesPM');
+
+  // --- 9月 -> 10月（期間: 2026-10-02 0:00〜） ---
+  var SWITCH_DATE_OCT = new Date('2026-10-02T00:00:00');
+  var OCT_SCHEDULE = {
     am: [
       { date: '2026-10-05', time: '9:30', text: '10/5', weekday: '（月）' },
       { date: '2026-10-26', time: '9:30', text: '10/26', weekday: '（月）' }
@@ -133,34 +157,38 @@ document.addEventListener('DOMContentLoaded', function () {
     ]
   };
 
-  if (today.getTime() >= SWITCH_DATE.getTime()) {
-    var renderScheduleList = function (ul, items, suffix) {
-      if (!ul) return;
-      ul.innerHTML = '';
-      items.forEach(function (item) {
-        var li = document.createElement('li');
-        li.setAttribute('data-date', item.date);
-        li.setAttribute('data-time', item.time);
-        li.setAttribute('data-label', item.text + item.weekday + suffix);
-        li.appendChild(document.createTextNode(item.text));
+  if (today.getTime() >= SWITCH_DATE_OCT.getTime()) {
+    renderScheduleList(scheduleDatesAMEl, OCT_SCHEDULE.am, '午前');
+    renderScheduleList(scheduleDatesPMEl, OCT_SCHEDULE.pm, '午後');
 
-        var span = document.createElement('span');
-        span.textContent = item.weekday;
-        li.appendChild(span);
-
-        ul.appendChild(li);
-      });
-    };
-
-    renderScheduleList(document.getElementById('scheduleDatesAM'), NEXT_SCHEDULE.am, '午前');
-    renderScheduleList(document.getElementById('scheduleDatesPM'), NEXT_SCHEDULE.pm, '午後');
-
-    // 2回目: 差し替え後（10月分）に、既に過ぎた日程がないか再チェック
+    // 差し替え後（10月分）に、既に過ぎた日程がないか再チェック
     // （例: 10月中旬に初めて訪れた場合、10/5などを自動でアーカイブする）
     archivePastScheduleDates();
   }
 
-  /* ---------- VOL card scheduled switch (VOL.2 10月 -> VOL.3 11月) ----------
+  // --- 10月 -> 11月（期間: 2026-11-01 0:00〜） ---
+  var SWITCH_DATE_NOV = new Date('2026-11-01T00:00:00');
+  var NOV_SCHEDULE = {
+    am: [
+      { date: '2026-11-02', time: '9:30', text: '11/2', weekday: '（月）' },
+      { date: '2026-11-09', time: '9:30', text: '11/9', weekday: '（月）' },
+      { date: '2026-11-16', time: '9:30', text: '11/16', weekday: '（月）' },
+      { date: '2026-11-30', time: '9:30', text: '11/30', weekday: '（月）' }
+    ],
+    pm: [
+      { date: '2026-11-26', time: '15:30', text: '11/26', weekday: '（木）' }
+    ]
+  };
+
+  if (today.getTime() >= SWITCH_DATE_NOV.getTime()) {
+    renderScheduleList(scheduleDatesAMEl, NOV_SCHEDULE.am, '午前');
+    renderScheduleList(scheduleDatesPMEl, NOV_SCHEDULE.pm, '午後');
+
+    // 差し替え後（11月分）に、既に過ぎた日程がないか再チェック
+    archivePastScheduleDates();
+  }
+
+  /* ---------- VOL card scheduled switch: 開催スケジュールエリア（#upcoming のVOLカード、VOL.2 10月 -> VOL.3 11月） ----------
      2026-11-01 以降にこのページを開くと、「トレーニング室のご案内」の
      開催スケジュールカード（#upcoming 内）を VOL.2（10月分）から
      VOL.3（11月分・フライヤーPDFダウンロードボタン付き）に自動的に
