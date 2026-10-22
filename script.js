@@ -115,14 +115,11 @@ document.addEventListener('DOMContentLoaded', function () {
   archivePastScheduleDates();
 
   /* ---------- Scheduled monthly switch: メインエリア（#training 常駐スケジュール）----------
-     「9月 -> 10月」「10月 -> 11月」のように、月が替わるたびに差し替え
-     ブロックを1つずつ追加していく方式。各ブロックは SWITCH_DATE 以降
-     であれば常駐スケジュールを該当月の日程に上書きするので、過去のブ
-     ロックから順に実行することで「訪問した月の最新スケジュール」が
-     正しく表示される（例: 11月に訪問した場合、10月ブロックが先に10月
-     分を書き込み、続けて11月ブロックがそれを11月分で上書きする）。
-     翌月以降も同じ仕組みを使う場合は、このパターンのまま新しいブロッ
-     クを下に追加してください（既存ブロックは消さずに残す）。 */
+     schedule-data.js の SCHEDULE_DATA.months を単一の情報源として、
+     switchDate を過ぎている active な月を古い順に適用する（後から
+     適用した月が常駐スケジュール表を上書きするので、最終的に最新の
+     月の日程が残る）。月の追加・終了は schedule-data.js 側の編集の
+     みで完結し、このファイルを書き換える必要はない。 */
   var renderScheduleList = function (ul, items, suffix) {
     if (!ul) return;
     ul.innerHTML = '';
@@ -144,48 +141,28 @@ document.addEventListener('DOMContentLoaded', function () {
   var scheduleDatesAMEl = document.getElementById('scheduleDatesAM');
   var scheduleDatesPMEl = document.getElementById('scheduleDatesPM');
 
-  // --- 9月 -> 10月（期間: 2026-10-02 0:00〜） ---
-  var SWITCH_DATE_OCT = new Date('2026-10-02T00:00:00');
-  var OCT_SCHEDULE = {
-    am: [
-      { date: '2026-10-05', time: '9:30', text: '10/5', weekday: '（月）' },
-      { date: '2026-10-26', time: '9:30', text: '10/26', weekday: '（月）' }
-    ],
-    pm: [
-      { date: '2026-10-08', time: '15:30', text: '10/8', weekday: '（木）' },
-      { date: '2026-10-15', time: '15:30', text: '10/15', weekday: '（木）' }
-    ]
-  };
+  if (typeof SCHEDULE_DATA !== 'undefined' && SCHEDULE_DATA.months) {
+    var dueMonths = SCHEDULE_DATA.months
+      .filter(function (m) { return m.active !== false; })
+      .map(function (m) { return { month: m, switchTime: new Date(m.switchDate).getTime() }; })
+      .filter(function (entry) { return today.getTime() >= entry.switchTime; })
+      .sort(function (a, b) { return a.switchTime - b.switchTime; });
 
-  if (today.getTime() >= SWITCH_DATE_OCT.getTime()) {
-    renderScheduleList(scheduleDatesAMEl, OCT_SCHEDULE.am, '午前');
-    renderScheduleList(scheduleDatesPMEl, OCT_SCHEDULE.pm, '午後');
+    dueMonths.forEach(function (entry) {
+      renderScheduleList(scheduleDatesAMEl, entry.month.am, '午前');
+      renderScheduleList(scheduleDatesPMEl, entry.month.pm, '午後');
 
-    // 差し替え後（10月分）に、既に過ぎた日程がないか再チェック
-    // （例: 10月中旬に初めて訪れた場合、10/5などを自動でアーカイブする）
-    archivePastScheduleDates();
-  }
+      // 差し替え後、既に過ぎた日程がないか再チェック
+      // （例: 月の中旬に初めて訪れた場合、前半の日程を自動でアーカイブする）
+      archivePastScheduleDates();
+    });
 
-  // --- 10月 -> 11月（期間: 2026-11-01 0:00〜） ---
-  var SWITCH_DATE_NOV = new Date('2026-11-01T00:00:00');
-  var NOV_SCHEDULE = {
-    am: [
-      { date: '2026-11-02', time: '9:30', text: '11/2', weekday: '（月）' },
-      { date: '2026-11-09', time: '9:30', text: '11/9', weekday: '（月）' },
-      { date: '2026-11-16', time: '9:30', text: '11/16', weekday: '（月）' },
-      { date: '2026-11-30', time: '9:30', text: '11/30', weekday: '（月）' }
-    ],
-    pm: [
-      { date: '2026-11-26', time: '15:30', text: '11/26', weekday: '（木）' }
-    ]
-  };
-
-  if (today.getTime() >= SWITCH_DATE_NOV.getTime()) {
-    renderScheduleList(scheduleDatesAMEl, NOV_SCHEDULE.am, '午前');
-    renderScheduleList(scheduleDatesPMEl, NOV_SCHEDULE.pm, '午後');
-
-    // 差し替え後（11月分）に、既に過ぎた日程がないか再チェック
-    archivePastScheduleDates();
+    // VOL.3カードのPDFボタンへリンクを反映（データファイルを唯一の情報源にする）
+    var novEntry = SCHEDULE_DATA.months.filter(function (m) { return m.id === 'nov-2026'; })[0];
+    var pdfBtn = document.getElementById('volNovPdfBtn');
+    if (novEntry && novEntry.vol && novEntry.vol.pdfUrl && pdfBtn) {
+      pdfBtn.setAttribute('href', novEntry.vol.pdfUrl);
+    }
   }
 
   var scheduleDateEls = document.querySelectorAll('.schedule-dates li[data-date]');
