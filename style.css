@@ -1501,7 +1501,7 @@ h2.section-head--dark-title { color: var(--color-white); }
   .about-statement { font-size: 1.7rem; }
 
   .upcoming-grid { grid-template-columns: repeat(3, 1fr); }
-  .vol-grid { grid-template-columns: 1fr 1fr; }
+  .vol-grid { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
   .sns-grid { grid-template-columns: 1fr 1fr; }
   .vol-row { grid-template-columns: 180px 1fr; align-items: baseline; }
   .vol-row dd { padding-left: 0; }

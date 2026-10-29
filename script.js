@@ -41,7 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- Auto-archive past schedule dates ----------
      関数化してあるのは、下の「月次スケジュール自動切り替え」の前後
-     （切り替え前の旧月分・切り替え後の新月分）両方で呼び出すため。 */
+     （切り替え前の旧月分・切り替え後の新月分）両方で呼び出すため。
+     today は日付（日単位）比較専用に 0:00 へ丸めたもの。
+     now は switchDate / expiresAt のような時刻付き日時との比較に
+     使う、丸めていない「現在時刻」。 */
+  var now = new Date();
   var today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -114,12 +118,20 @@ document.addEventListener('DOMContentLoaded', function () {
   // 1回目: 現在HTML上にある月（9月）の日程を対象に実行
   archivePastScheduleDates();
 
-  /* ---------- Scheduled monthly switch: メインエリア（#training 常駐スケジュール）----------
+  /* ---------- Scheduled monthly switch: メインエリア（#training 常駐スケジュール）＋ VOLカード ----------
      schedule-data.js の SCHEDULE_DATA.months を単一の情報源として、
-     switchDate を過ぎている active な月を古い順に適用する（後から
-     適用した月が常駐スケジュール表を上書きするので、最終的に最新の
-     月の日程が残る）。月の追加・終了は schedule-data.js 側の編集の
-     みで完結し、このファイルを書き換える必要はない。 */
+     各月の「表示が有効になる時刻」(effectiveStart) を過ぎている
+     active な月を古い順に適用する（後から適用した月が常駐スケジュール
+     表を上書きするので、最終的に最新の月の日程が残る）。
+
+     effectiveStart は、その月自身の switchDate（カレンダー上の月初め
+     など）と、直前の月の expiresAt（直前の月の最終日程が終わる日時）
+     のうち早い方。これにより、当月の最終日程が終わった瞬間に
+     月末を待たず次月へ即座に昇格しつつ、仮に expiresAt の設定が漏れ
+     ていても switchDate（月初め）で必ず切り替わるフェイルセーフが働く。
+
+     月の追加・終了は schedule-data.js 側の編集のみで完結し、この
+     ファイルを書き換える必要はない。 */
   var renderScheduleList = function (ul, items, suffix) {
     if (!ul) return;
     ul.innerHTML = '';
@@ -142,11 +154,22 @@ document.addEventListener('DOMContentLoaded', function () {
   var scheduleDatesPMEl = document.getElementById('scheduleDatesPM');
 
   if (typeof SCHEDULE_DATA !== 'undefined' && SCHEDULE_DATA.months) {
-    var dueMonths = SCHEDULE_DATA.months
+    var allMonths = SCHEDULE_DATA.months;
+
+    var dueMonths = allMonths
       .filter(function (m) { return m.active !== false; })
-      .map(function (m) { return { month: m, switchTime: new Date(m.switchDate).getTime() }; })
-      .filter(function (entry) { return today.getTime() >= entry.switchTime; })
-      .sort(function (a, b) { return a.switchTime - b.switchTime; });
+      .map(function (m, i) {
+        var starts = [];
+        if (m.switchDate) starts.push(new Date(m.switchDate).getTime());
+
+        var prev = allMonths[i - 1];
+        if (prev && prev.expiresAt) starts.push(new Date(prev.expiresAt).getTime());
+
+        var effectiveStart = starts.length ? Math.min.apply(null, starts) : -Infinity;
+        return { month: m, effectiveStart: effectiveStart };
+      })
+      .filter(function (entry) { return now.getTime() >= entry.effectiveStart; })
+      .sort(function (a, b) { return a.effectiveStart - b.effectiveStart; });
 
     dueMonths.forEach(function (entry) {
       renderScheduleList(scheduleDatesAMEl, entry.month.am, '午前');
@@ -158,10 +181,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // VOL.3カードのPDFボタンへリンクを反映（データファイルを唯一の情報源にする）
-    var novEntry = SCHEDULE_DATA.months.filter(function (m) { return m.id === 'nov-2026'; })[0];
+    var octEntry = allMonths.filter(function (m) { return m.id === 'oct-2026'; })[0];
+    var novEntry = allMonths.filter(function (m) { return m.id === 'nov-2026'; })[0];
     var pdfBtn = document.getElementById('volNovPdfBtn');
     if (novEntry && novEntry.vol && novEntry.vol.pdfUrl && pdfBtn) {
       pdfBtn.setAttribute('href', novEntry.vol.pdfUrl);
+    }
+
+    /* ---------- VOLカード: 10月分の最終日程終了後、即座に非表示へ ----------
+       それまでは VOL.2（10月・メイン）と VOL.3（11月・次回告知）を
+       並べて表示。10月の expiresAt を過ぎたら、月末を待たずに即座に
+       VOL.2 を非表示にし、VOL.3 が単独のメイン表示に昇格する。 */
+    var volCardOct = document.getElementById('volCardOct');
+    if (volCardOct && octEntry && octEntry.expiresAt) {
+      volCardOct.hidden = now.getTime() >= new Date(octEntry.expiresAt).getTime();
     }
   }
 
