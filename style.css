@@ -1118,12 +1118,6 @@ h2.section-head--dark-title { color: var(--color-white); }
 .event-row dt i { color: var(--color-accent-light); width: 1em; text-align: center; }
 .event-row dd { color: var(--color-on-dark-soft); padding-left: 22px; line-height: 1.7; }
 
-.event-btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
 .event-apply-btn {
   display: inline-flex;
   align-items: center;
@@ -1148,43 +1142,6 @@ h2.section-head--dark-title { color: var(--color-white); }
   background: var(--color-accent);
   color: var(--color-navy-deep);
   border-color: var(--color-accent);
-}
-
-.event-apply-btn--pending {
-  color: var(--color-on-dark-soft);
-  background: transparent;
-  border: 1px dashed rgba(255, 255, 255, 0.28);
-}
-
-.event-comment {
-  display: grid;
-  gap: 10px;
-  background: var(--color-navy-mid);
-  border-left: 3px solid var(--color-accent);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 20px 20px 20px 22px;
-}
-
-.event-comment-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--color-accent-light);
-}
-
-.event-comment-text {
-  font-size: 0.9rem;
-  line-height: 1.9;
-  color: var(--color-on-dark);
-}
-
-.event-comment-attr {
-  font-size: 0.8rem;
-  color: var(--color-on-dark-soft);
-  text-align: right;
 }
 
 /* ---------- News (活動報告・お知らせ / ダークセクション) ---------- */
