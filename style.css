@@ -433,6 +433,12 @@ h2.section-head--dark-title { color: var(--color-white); }
 .latest-ticker:hover,
 .latest-ticker:focus-visible { background: #0C0F16; }
 
+.latest-ticker-bell {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  color: var(--color-accent-light);
+}
+
 .latest-ticker-badge {
   flex-shrink: 0;
   font-family: var(--font-display);
@@ -1020,6 +1026,166 @@ h2.section-head--dark-title { color: var(--color-white); }
   align-self: flex-start;
 }
 .activity-card:hover .activity-card-cta { gap: 12px; }
+
+/* ---------- 汎用の新着ドット（NAVのNEWSドットと同じ見た目を、別の場所でも再利用） ---------- */
+.new-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  box-shadow: 0 0 0 0 rgba(232, 201, 119, 0.7);
+  animation: live-pulse 1.8s infinite;
+  vertical-align: middle;
+}
+
+/* ---------- イベント告知カード（リズムジャンプ＆アジリティ / SQUAD） ---------- */
+.event-announce-card {
+  display: grid;
+  gap: 22px;
+  background: var(--color-navy-deep);
+  border: 1px solid rgba(201, 162, 74, 0.35);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 44px rgba(5, 7, 12, 0.32);
+  padding: 26px 24px;
+  margin-bottom: 18px;
+}
+
+.event-announce-head { display: grid; gap: 10px; }
+
+.event-announce-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  background: rgba(201, 162, 74, 0.14);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.event-announce-title {
+  font-size: 1.14rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.event-sub {
+  display: grid;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-sub-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent-light);
+}
+.event-sub-title i { color: var(--color-accent); }
+
+.event-sub-lead { font-size: 0.9rem; color: var(--color-on-dark-soft); }
+
+.event-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-row {
+  display: grid;
+  gap: 5px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.88rem;
+}
+.event-row dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+.event-row dt i { color: var(--color-accent-light); width: 1em; text-align: center; }
+.event-row dd { color: var(--color-on-dark-soft); padding-left: 22px; line-height: 1.7; }
+
+.event-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.event-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 11px 20px;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-md);
+}
+
+.event-apply-btn--active {
+  color: var(--color-accent-light);
+  background: transparent;
+  border: 1px solid rgba(201, 162, 74, 0.5);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.event-apply-btn--active:hover,
+.event-apply-btn--active:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-navy-deep);
+  border-color: var(--color-accent);
+}
+
+.event-apply-btn--pending {
+  color: var(--color-on-dark-soft);
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.28);
+}
+
+.event-comment {
+  display: grid;
+  gap: 10px;
+  background: var(--color-navy-mid);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 20px 20px 20px 22px;
+}
+
+.event-comment-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-accent-light);
+}
+
+.event-comment-text {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--color-on-dark);
+}
+
+.event-comment-attr {
+  font-size: 0.8rem;
+  color: var(--color-on-dark-soft);
+  text-align: right;
+}
 
 /* ---------- News (活動報告・お知らせ / ダークセクション) ---------- */
 .news-list--dark {
@@ -1626,6 +1792,9 @@ h2.section-head--dark-title { color: var(--color-white); }
   .sns-grid { grid-template-columns: 1fr 1fr; }
   .vol-row { grid-template-columns: 180px 1fr; align-items: baseline; }
   .vol-row dd { padding-left: 0; }
+
+  .event-row { grid-template-columns: 120px 1fr; align-items: baseline; }
+  .event-row dd { padding-left: 0; }
 }
 
 @media (min-width: 860px) {
