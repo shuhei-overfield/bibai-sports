@@ -1118,32 +1118,6 @@ h2.section-head--dark-title { color: var(--color-white); }
 .event-row dt i { color: var(--color-accent-light); width: 1em; text-align: center; }
 .event-row dd { color: var(--color-on-dark-soft); padding-left: 22px; line-height: 1.7; }
 
-.event-apply-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  padding: 11px 20px;
-  font-family: var(--font-display);
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: var(--radius-md);
-}
-
-.event-apply-btn--active {
-  color: var(--color-accent-light);
-  background: transparent;
-  border: 1px solid rgba(201, 162, 74, 0.5);
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-.event-apply-btn--active:hover,
-.event-apply-btn--active:focus-visible {
-  background: var(--color-accent);
-  color: var(--color-navy-deep);
-  border-color: var(--color-accent);
-}
-
 /* ---------- News (活動報告・お知らせ / ダークセクション) ---------- */
 .news-list--dark {
   display: grid;
