@@ -47,27 +47,6 @@
 var SCHEDULE_DATA = {
   months: [
     {
-      id: 'oct-2026',
-      active: true,
-      switchDate: '2026-10-02T00:00:00',
-      // 10月の最終日程は am の10/26（月）。その日の営業終了（18:00）を
-      // もって10月分の掲載を終了し、11月分へ即時切り替える。
-      expiresAt: '2026-10-26T18:00:00',
-      am: [
-        { date: '2026-10-05', time: '9:30', text: '10/5', weekday: '（月）' },
-        { date: '2026-10-26', time: '9:30', text: '10/26', weekday: '（月）' }
-      ],
-      pm: [
-        { date: '2026-10-08', time: '15:30', text: '10/8', weekday: '（木）' },
-        { date: '2026-10-15', time: '15:30', text: '10/15', weekday: '（木）' }
-      ],
-      // #upcoming の VOL.2カード（index.html 内, id="volCardOct"）と連動。
-      // PDFボタンは無いため pdfBtnId / pdfUrl は指定しない。
-      vol: {
-        cardId: 'volCardOct'
-      }
-    },
-    {
       id: 'nov-2026',
       active: true,
       switchDate: '2026-11-01T00:00:00',
@@ -102,9 +81,12 @@ var SCHEDULE_DATA = {
       expiresAt: '2026-12-21T12:00:00',
       // 12月は「午後」ではなく「夜の部」（18:00〜20:30）のため、
       // #training 常駐スケジュール表の見出し・時間帯・アイコンを上書きする。
+      // 夜間開催は初めての取り組みのため、pmBadge で少し目立たせる
+      // （この告知は12月限定。翌月以降は指定しなければ自動的に消える）。
       pmLabel: '夜',
       pmTime: '18:00 〜 20:30',
       pmIcon: 'fa-regular fa-moon',
+      pmBadge: '初開催',
       am: [
         { date: '2026-12-07', time: '9:30', text: '12/7', weekday: '（月）' },
         { date: '2026-12-14', time: '9:30', text: '12/14', weekday: '（月）' },

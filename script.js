@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var scheduleTimeAMEl = document.getElementById('scheduleTimeAM');
   var scheduleTimePMEl = document.getElementById('scheduleTimePM');
   var scheduleIconPMEl = document.getElementById('scheduleIconPM');
+  var scheduleBadgePMEl = document.getElementById('scheduleBadgePM');
 
   if (typeof SCHEDULE_DATA !== 'undefined' && SCHEDULE_DATA.months) {
     var allMonths = SCHEDULE_DATA.months;
@@ -189,6 +190,17 @@ document.addEventListener('DOMContentLoaded', function () {
       if (scheduleTimeAMEl && m.amTime) scheduleTimeAMEl.textContent = m.amTime;
       if (scheduleTimePMEl && m.pmTime) scheduleTimePMEl.textContent = m.pmTime;
       if (scheduleIconPMEl && m.pmIcon) scheduleIconPMEl.className = m.pmIcon;
+
+      // pmBadge（「初開催」等）は一時的な告知なので、指定が無い月では
+      // 前の月の表示を引き継がず、毎回リセットして非表示にする。
+      if (scheduleBadgePMEl) {
+        if (m.pmBadge) {
+          scheduleBadgePMEl.textContent = m.pmBadge;
+          scheduleBadgePMEl.hidden = false;
+        } else {
+          scheduleBadgePMEl.hidden = true;
+        }
+      }
 
       // 差し替え後、既に過ぎた日程がないか再チェック
       // （例: 月の中旬に初めて訪れた場合、前半の日程を自動でアーカイブする）

@@ -797,6 +797,18 @@ h2.section-head--dark-title { color: var(--color-white); }
 }
 .schedule-card-head i { color: var(--color-accent-dark); font-size: 1.05rem; }
 
+/* 「初開催」等、期間限定で少し目立たせたい告知バッジ */
+.schedule-badge {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-navy-deep);
+  background: var(--color-accent);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
 .schedule-time {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -1372,6 +1384,29 @@ h2.section-head--dark-title { color: var(--color-white); }
 }
 .vol-row dt i { color: var(--color-accent-dark); }
 .vol-row dd { color: var(--color-ink); padding-left: 22px; }
+
+/* 初開催の夜間開催など、少しだけ目立たせたい行 */
+.vol-row--highlight {
+  background: rgba(201, 162, 74, 0.1);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding-left: 10px;
+  margin: 2px 0;
+}
+
+.vol-row-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-navy-deep);
+  background: var(--color-accent);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
 
 .vol-note {
   display: flex;

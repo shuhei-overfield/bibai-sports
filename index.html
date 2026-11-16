@@ -53,10 +53,10 @@
   </section>
 
   <!-- ===== 最新のお知らせ（ファーストビュー直下のティッカー） ===== -->
-  <a href="#training" class="latest-ticker">
+  <a href="#event-rhythm-squad" class="latest-ticker">
     <i class="fa-solid fa-bell latest-ticker-bell" aria-hidden="true"></i>
     <span class="latest-ticker-badge">NEW</span>
-    <span class="latest-ticker-text">最新の更新：12月分のトレーニング室常駐スケジュールを公開しました</span>
+    <span class="latest-ticker-text">最新の更新：140名参加！「リズムジャンプ＆アジリティ」イベントの開催報告と御礼を掲載しました</span>
     <i class="fa-solid fa-chevron-right latest-ticker-arrow" aria-hidden="true"></i>
   </a>
 
@@ -246,6 +246,7 @@
             <div class="schedule-card-head">
               <i class="fa-solid fa-cloud-sun" id="scheduleIconPM"></i>
               <span id="scheduleLabelPM">午後</span>
+              <span class="schedule-badge" id="scheduleBadgePM" hidden></span>
             </div>
             <p class="schedule-time" id="scheduleTimePM">15:30&nbsp;〜&nbsp;18:00</p>
             <ul class="schedule-dates" id="scheduleDatesPM">
@@ -355,48 +356,11 @@
         </article>
       </div>
 
-      <!-- --- サブセクション: トレーニング室サポート 開催スケジュール（VOL.2 / VOL.3 / VOL.4） --- -->
+      <!-- --- サブセクション: トレーニング室サポート 開催スケジュール（VOL.3 / VOL.4） --- -->
       <div class="subsection vol-subsection">
         <h3 class="subsection-title"><i class="fa-regular fa-calendar-check"></i> トレーニング室サポート 開催スケジュール</h3>
 
         <div class="vol-grid">
-          <article class="vol-card vol-card--new" id="volCardOct">
-            <div class="vol-card-head">
-              <span class="vol-flag">好評につき</span>
-              <span class="vol-num">VOL.2</span>
-              <span class="vol-period">10月開催分</span>
-            </div>
-            <p class="vol-desc">「なんとなく」の自己流トレーニング、そろそろ卒業しませんか？美唄市総合体育館で始める、新しいカラダづくり。</p>
-
-            <dl class="vol-detail">
-              <div class="vol-row">
-                <dt><i class="fa-regular fa-sun"></i> 午前の部　9:30〜12:00</dt>
-                <dd>10月5日(月)、10月26日(月)</dd>
-              </div>
-              <div class="vol-row">
-                <dt><i class="fa-solid fa-cloud-sun"></i> 午後の部　15:30〜18:00</dt>
-                <dd>10月8日(木)、10月15日(木)</dd>
-              </div>
-              <div class="vol-row">
-                <dt><i class="fa-solid fa-location-dot"></i> 場所</dt>
-                <dd>美唄市総合体育館 トレーニング室</dd>
-              </div>
-              <div class="vol-row">
-                <dt><i class="fa-solid fa-user-group"></i> 対象</dt>
-                <dd>トレーニング初心者、自己流の運動を見直したい方<br>未経験の方も大歓迎です！</dd>
-              </div>
-              <div class="vol-row">
-                <dt><i class="fa-solid fa-yen-sign"></i> 参加費</dt>
-                <dd>施設利用料のみ</dd>
-              </div>
-              <div class="vol-row">
-                <dt><i class="fa-solid fa-bag-shopping"></i> 持ち物</dt>
-                <dd>動きやすい服装、室内シューズ、タオル、飲み物</dd>
-              </div>
-            </dl>
-
-            <p class="vol-note"><i class="fa-solid fa-circle-info"></i> 事前予約不要。当日直接トレーニング室へお越しください。</p>
-          </article>
 
           <!-- VOL.3（11月分）。予定表として、VOL.2と常に並べて表示する -->
           <article class="vol-card vol-card--new vol-card--dark" id="volCardNov">
@@ -455,8 +419,8 @@
                 <dt><i class="fa-regular fa-sun"></i> 午前の部　9:30〜12:00</dt>
                 <dd>12月7日(月)、14日(月)、21日(月)</dd>
               </div>
-              <div class="vol-row">
-                <dt><i class="fa-regular fa-moon"></i> 夜の部　18:00〜20:30</dt>
+              <div class="vol-row vol-row--highlight">
+                <dt><i class="fa-regular fa-moon"></i> 夜の部　18:00〜20:30<span class="vol-row-badge">初開催</span></dt>
                 <dd>12月18日(金)</dd>
               </div>
               <div class="vol-row">
@@ -498,7 +462,7 @@
       <!-- --- 開催報告カード: リズムジャンプ＆アジリティ / SQUAD --- -->
       <article class="event-announce-card" id="event-rhythm-squad">
         <div class="event-announce-head">
-          <p class="event-announce-eyebrow">EVENT REPORT / 開催報告</p>
+          <p class="event-announce-eyebrow">EVENT REPORT / 開催報告<span class="new-dot" aria-hidden="true"></span><span class="sr-only">（新着あり）</span></p>
           <h3 class="event-announce-title">【開催報告】140名参加！「リズムジャンプ＆アジリティ」「SQUAD」大盛況のうちに終了いたしました</h3>
         </div>
 
@@ -532,7 +496,7 @@
       <ul class="news-list news-list--dark">
         <li class="news-item news-item--dark">
           <time class="news-date" datetime="2026-11-16">2026/11/16</time>
-          <h3 class="news-title">12月分のスケジュールを公開しました<span class="news-new-badge">NEW</span></h3>
+          <h3 class="news-title">12月分のスケジュールを公開しました</h3>
           <p class="news-text">トレーニング室サポートの12月の常駐スケジュールを公開しました。詳しくは「トレーニング室のご案内」をご確認ください。</p>
         </li>
         <li class="news-item news-item--dark">
