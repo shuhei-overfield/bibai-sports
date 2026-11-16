@@ -53,10 +53,10 @@
   </section>
 
   <!-- ===== 最新のお知らせ（ファーストビュー直下のティッカー） ===== -->
-  <a href="#event-rhythm-squad" class="latest-ticker">
+  <a href="#training" class="latest-ticker">
     <i class="fa-solid fa-bell latest-ticker-bell" aria-hidden="true"></i>
     <span class="latest-ticker-badge">NEW</span>
-    <span class="latest-ticker-text">最新の更新：140名参加！「リズムジャンプ＆アジリティ」イベントの開催報告と御礼を掲載しました</span>
+    <span class="latest-ticker-text">最新の更新：12月分のトレーニング室常駐スケジュールを公開しました</span>
     <i class="fa-solid fa-chevron-right latest-ticker-arrow" aria-hidden="true"></i>
   </a>
 
@@ -233,9 +233,9 @@
           <div class="schedule-card schedule-card--am">
             <div class="schedule-card-head">
               <i class="fa-regular fa-sun"></i>
-              <span>午前</span>
+              <span id="scheduleLabelAM">午前</span>
             </div>
-            <p class="schedule-time">9:30&nbsp;〜&nbsp;12:00</p>
+            <p class="schedule-time" id="scheduleTimeAM">9:30&nbsp;〜&nbsp;12:00</p>
             <ul class="schedule-dates" id="scheduleDatesAM">
               <li data-date="2026-09-07" data-time="9:30" data-label="9/7（月）午前">9/7<span>（月）</span></li>
               <li data-date="2026-09-14" data-time="9:30" data-label="9/14（月）午前">9/14<span>（月）</span></li>
@@ -244,10 +244,10 @@
           </div>
           <div class="schedule-card schedule-card--pm">
             <div class="schedule-card-head">
-              <i class="fa-solid fa-cloud-sun"></i>
-              <span>午後</span>
+              <i class="fa-solid fa-cloud-sun" id="scheduleIconPM"></i>
+              <span id="scheduleLabelPM">午後</span>
             </div>
-            <p class="schedule-time">15:30&nbsp;〜&nbsp;18:00</p>
+            <p class="schedule-time" id="scheduleTimePM">15:30&nbsp;〜&nbsp;18:00</p>
             <ul class="schedule-dates" id="scheduleDatesPM">
               <li data-date="2026-09-17" data-time="15:30" data-label="9/17（木）午後">9/17<span>（木）</span></li>
               <li data-date="2026-09-28" data-time="15:30" data-label="9/28（月）午後">9/28<span>（月）</span></li>
@@ -355,7 +355,7 @@
         </article>
       </div>
 
-      <!-- --- サブセクション: トレーニング室サポート 開催スケジュール（VOL.2 / VOL.3） --- -->
+      <!-- --- サブセクション: トレーニング室サポート 開催スケジュール（VOL.2 / VOL.3 / VOL.4） --- -->
       <div class="subsection vol-subsection">
         <h3 class="subsection-title"><i class="fa-regular fa-calendar-check"></i> トレーニング室サポート 開催スケジュール</h3>
 
@@ -439,6 +439,48 @@
               <i class="fa-solid fa-file-pdf"></i> フライヤー（PDF）をダウンロード
             </a>
           </article>
+
+          <!-- VOL.4（12月分）。11月の最終日程終了後、script.jsが自動的にVOL.3を非表示にし、こちらを表示する -->
+          <article class="vol-card vol-card--new vol-card--dark" id="volCardDec">
+            <div class="vol-card-head">
+              <span class="vol-flag">受付中</span>
+              <span class="vol-num">VOL.4</span>
+              <span class="vol-period">12月開催分</span>
+            </div>
+            <p class="vol-title">2026年12月 常駐スケジュール（VOL.4）</p>
+            <p class="vol-desc">12月も引き続き、美唄市総合体育館にOVERFIELDのスタッフが常駐。トレーニングのサポートを行います。</p>
+
+            <dl class="vol-detail">
+              <div class="vol-row">
+                <dt><i class="fa-regular fa-sun"></i> 午前の部　9:30〜12:00</dt>
+                <dd>12月7日(月)、14日(月)、21日(月)</dd>
+              </div>
+              <div class="vol-row">
+                <dt><i class="fa-regular fa-moon"></i> 夜の部　18:00〜20:30</dt>
+                <dd>12月18日(金)</dd>
+              </div>
+              <div class="vol-row">
+                <dt><i class="fa-solid fa-location-dot"></i> 場所</dt>
+                <dd>美唄市総合体育館 トレーニング室</dd>
+              </div>
+              <div class="vol-row">
+                <dt><i class="fa-solid fa-yen-sign"></i> 参加費</dt>
+                <dd>施設利用料のみ（事前予約不要）</dd>
+              </div>
+              <div class="vol-row">
+                <dt><i class="fa-solid fa-bag-shopping"></i> 持ち物</dt>
+                <dd>動きやすい服装、室内シューズ、タオル、飲み物</dd>
+              </div>
+              <div class="vol-row">
+                <dt><i class="fa-solid fa-hand-holding-medical"></i> サポート内容</dt>
+                <dd>体組成測定、マシンの正しい使い方、個別アドバイス</dd>
+              </div>
+            </dl>
+
+            <a class="vol-pdf-btn" id="volDecPdfBtn" href="training-vol4.pdf" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-file-pdf"></i> 12月分フライヤーをダウンロード
+            </a>
+          </article>
         </div>
       </div>
     </div>
@@ -456,7 +498,7 @@
       <!-- --- 開催報告カード: リズムジャンプ＆アジリティ / SQUAD --- -->
       <article class="event-announce-card" id="event-rhythm-squad">
         <div class="event-announce-head">
-          <p class="event-announce-eyebrow">EVENT REPORT / 開催報告<span class="new-dot" aria-hidden="true"></span><span class="sr-only">（新着あり）</span></p>
+          <p class="event-announce-eyebrow">EVENT REPORT / 開催報告</p>
           <h3 class="event-announce-title">【開催報告】140名参加！「リズムジャンプ＆アジリティ」「SQUAD」大盛況のうちに終了いたしました</h3>
         </div>
 
@@ -488,6 +530,11 @@
       </article>
 
       <ul class="news-list news-list--dark">
+        <li class="news-item news-item--dark">
+          <time class="news-date" datetime="2026-11-16">2026/11/16</time>
+          <h3 class="news-title">12月分のスケジュールを公開しました<span class="news-new-badge">NEW</span></h3>
+          <p class="news-text">トレーニング室サポートの12月の常駐スケジュールを公開しました。詳しくは「トレーニング室のご案内」をご確認ください。</p>
+        </li>
         <li class="news-item news-item--dark">
           <time class="news-date" datetime="2026-11-02">2026/11/2</time>
           <h3 class="news-title">11月分のスケジュールを公開しました</h3>

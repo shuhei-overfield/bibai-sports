@@ -152,6 +152,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var scheduleDatesAMEl = document.getElementById('scheduleDatesAM');
   var scheduleDatesPMEl = document.getElementById('scheduleDatesPM');
+  var scheduleLabelAMEl = document.getElementById('scheduleLabelAM');
+  var scheduleLabelPMEl = document.getElementById('scheduleLabelPM');
+  var scheduleTimeAMEl = document.getElementById('scheduleTimeAM');
+  var scheduleTimePMEl = document.getElementById('scheduleTimePM');
+  var scheduleIconPMEl = document.getElementById('scheduleIconPM');
 
   if (typeof SCHEDULE_DATA !== 'undefined' && SCHEDULE_DATA.months) {
     var allMonths = SCHEDULE_DATA.months;
@@ -172,30 +177,43 @@ document.addEventListener('DOMContentLoaded', function () {
       .sort(function (a, b) { return a.effectiveStart - b.effectiveStart; });
 
     dueMonths.forEach(function (entry) {
-      renderScheduleList(scheduleDatesAMEl, entry.month.am, '午前');
-      renderScheduleList(scheduleDatesPMEl, entry.month.pm, '午後');
+      var m = entry.month;
+      renderScheduleList(scheduleDatesAMEl, m.am, m.amLabel || '午前');
+      renderScheduleList(scheduleDatesPMEl, m.pm, m.pmLabel || '午後');
+
+      // 「午前」「午後」の見出し・時間帯・アイコンは、通常の月は変更
+      // 不要（前の月の表示を引き継ぐ）。12月の「夜の部」のように、
+      // 時間帯の性質が変わる月だけ、データ側の指定で上書きする。
+      if (scheduleLabelAMEl && m.amLabel) scheduleLabelAMEl.textContent = m.amLabel;
+      if (scheduleLabelPMEl && m.pmLabel) scheduleLabelPMEl.textContent = m.pmLabel;
+      if (scheduleTimeAMEl && m.amTime) scheduleTimeAMEl.textContent = m.amTime;
+      if (scheduleTimePMEl && m.pmTime) scheduleTimePMEl.textContent = m.pmTime;
+      if (scheduleIconPMEl && m.pmIcon) scheduleIconPMEl.className = m.pmIcon;
 
       // 差し替え後、既に過ぎた日程がないか再チェック
       // （例: 月の中旬に初めて訪れた場合、前半の日程を自動でアーカイブする）
       archivePastScheduleDates();
     });
 
-    // VOL.3カードのPDFボタンへリンクを反映（データファイルを唯一の情報源にする）
-    var octEntry = allMonths.filter(function (m) { return m.id === 'oct-2026'; })[0];
-    var novEntry = allMonths.filter(function (m) { return m.id === 'nov-2026'; })[0];
-    var pdfBtn = document.getElementById('volNovPdfBtn');
-    if (novEntry && novEntry.vol && novEntry.vol.pdfUrl && pdfBtn) {
-      pdfBtn.setAttribute('href', novEntry.vol.pdfUrl);
-    }
+    /* ---------- VOLカード（#upcoming）: PDFボタンの反映と自動非表示 ----------
+       vol を持つ月を古い順に並べ、PDFボタンの href をそれぞれ反映する。
+       一番新しい vol月のカードは常に表示したままにし、それより古い
+       vol月のカードは、その月の expiresAt を過ぎた時点で自動的に
+       非表示にする（月末を待たない即時切り替え）。 */
+    var volMonths = allMonths.filter(function (m) { return m.vol; });
 
-    /* ---------- VOLカード: 10月分の最終日程終了後、即座に非表示へ ----------
-       それまでは VOL.2（10月・メイン）と VOL.3（11月・次回告知）を
-       並べて表示。10月の expiresAt を過ぎたら、月末を待たずに即座に
-       VOL.2 を非表示にし、VOL.3 が単独のメイン表示に昇格する。 */
-    var volCardOct = document.getElementById('volCardOct');
-    if (volCardOct && octEntry && octEntry.expiresAt) {
-      volCardOct.hidden = now.getTime() >= new Date(octEntry.expiresAt).getTime();
-    }
+    volMonths.forEach(function (m, i) {
+      var pdfBtn = m.vol.pdfBtnId ? document.getElementById(m.vol.pdfBtnId) : null;
+      if (pdfBtn && m.vol.pdfUrl) {
+        pdfBtn.setAttribute('href', m.vol.pdfUrl);
+      }
+
+      var isLatest = i === volMonths.length - 1;
+      var cardEl = m.vol.cardId ? document.getElementById(m.vol.cardId) : null;
+      if (cardEl && !isLatest && m.expiresAt) {
+        cardEl.hidden = now.getTime() >= new Date(m.expiresAt).getTime();
+      }
+    });
   }
 
   var scheduleDateEls = document.querySelectorAll('.schedule-dates li[data-date]');
