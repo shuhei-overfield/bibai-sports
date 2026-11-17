@@ -415,28 +415,51 @@ h2.section-head--dark-title { color: var(--color-white); }
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
-/* ---------- 最新のお知らせティッカー（ファーストビュー直下） ---------- */
+/* ---------- 最新のお知らせティッカー（ファーストビュー直下） ----------
+   複数件のお知らせを、数秒おきに静かにフェード切り替えしながら
+   1行ずつ表示する。掲示板的にならないよう、常に表示は1件のみ・
+   枠線とopacityだけで構成し、原色や派手な装飾は使わない。 */
 .latest-ticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--color-navy-deep);
+  border-top: 1px solid rgba(201, 162, 74, 0.28);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.28);
+}
+
+.latest-ticker-bell {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  color: var(--color-accent-light);
+}
+/* Font Awesome 側が display を指定してしまうため、hidden属性が
+   効くように明示的に上書きする（他のFAアイコンでも同様の対応が必要） */
+.latest-ticker-bell[hidden] { display: none; }
+
+.latest-ticker-track {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.latest-ticker-item {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   row-gap: 4px;
   column-gap: 12px;
-  padding: 13px 20px;
-  background: var(--color-navy-deep);
-  border-top: 1px solid rgba(201, 162, 74, 0.28);
-  border-bottom: 1px solid rgba(201, 162, 74, 0.28);
   text-align: center;
   transition: background 0.15s ease;
 }
-.latest-ticker:hover,
-.latest-ticker:focus-visible { background: #0C0F16; }
-
-.latest-ticker-bell {
-  flex-shrink: 0;
-  font-size: 0.82rem;
-  color: var(--color-accent-light);
+.latest-ticker-item[hidden] { display: none; }
+.latest-ticker-item.is-active { animation: latest-ticker-fade-in 0.4s ease; }
+@keyframes latest-ticker-fade-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .latest-ticker-badge {
@@ -464,8 +487,32 @@ h2.section-head--dark-title { color: var(--color-white); }
   color: var(--color-accent-light);
   transition: transform 0.15s ease;
 }
-.latest-ticker:hover .latest-ticker-arrow,
-.latest-ticker:focus-visible .latest-ticker-arrow { transform: translateX(3px); }
+.latest-ticker-item:hover .latest-ticker-arrow,
+.latest-ticker-item:focus-visible .latest-ticker-arrow { transform: translateX(3px); }
+
+.latest-ticker-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.latest-ticker-dots[hidden] { display: none; }
+.latest-ticker-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(244, 245, 248, 0.28);
+  transition: background 0.3s ease;
+}
+.latest-ticker-dot.is-active { background: var(--color-accent); }
+
+.latest-ticker-empty {
+  width: 100%;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--color-on-dark-soft);
+  opacity: 0.8;
+}
 
 /* =========================================================
    2. TRAINING LAB

@@ -49,6 +49,75 @@ document.addEventListener('DOMContentLoaded', function () {
   var today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  /* ---------- 最新のお知らせティッカー: 有効期限管理と自動切り替え ----------
+     各 .latest-ticker-item の data-expiry（YYYY-MM-DD）を、その日の
+     23:59:59 まで有効な期限として扱う。期限切れの項目はページ読み込み
+     時にDOMから完全に取り除き、残った項目が複数あれば数秒おきに
+     フェードしながら1件ずつ表示する。全件が期限切れの場合は、ティッカー
+     を「現在、新しいお知らせはありません」という控えめな表示に切り替える。 */
+  var latestTicker = document.getElementById('latestTicker');
+  if (latestTicker) {
+    var tickerTrack = document.getElementById('latestTickerTrack');
+    var tickerDotsEl = document.getElementById('latestTickerDots');
+    var tickerEmptyEl = document.getElementById('latestTickerEmpty');
+    var tickerBellEl = latestTicker.querySelector('.latest-ticker-bell');
+
+    var tickerItems = Array.prototype.slice.call(tickerTrack.querySelectorAll('.latest-ticker-item'))
+      .filter(function (item) {
+        var expiry = item.getAttribute('data-expiry');
+        if (!expiry) return true;
+
+        var expiryDate = new Date(expiry + 'T23:59:59');
+        if (now.getTime() > expiryDate.getTime()) {
+          // 期限切れ：掲載し続けないよう、DOMから完全に取り除く
+          item.parentNode.removeChild(item);
+          return false;
+        }
+        return true;
+      });
+
+    if (tickerItems.length === 0) {
+      tickerTrack.hidden = true;
+      if (tickerDotsEl) tickerDotsEl.hidden = true;
+      if (tickerBellEl) tickerBellEl.hidden = true;
+      if (tickerEmptyEl) tickerEmptyEl.hidden = false;
+    } else {
+      var tickerDotEls = [];
+      if (tickerDotsEl) {
+        if (tickerItems.length > 1) {
+          tickerItems.forEach(function () {
+            var dot = document.createElement('span');
+            dot.className = 'latest-ticker-dot';
+            tickerDotsEl.appendChild(dot);
+          });
+          tickerDotEls = Array.prototype.slice.call(tickerDotsEl.querySelectorAll('.latest-ticker-dot'));
+        } else {
+          tickerDotsEl.hidden = true;
+        }
+      }
+
+      var showTickerItem = function (index) {
+        tickerItems.forEach(function (item, i) {
+          item.hidden = i !== index;
+          item.classList.toggle('is-active', i === index);
+        });
+        tickerDotEls.forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === index);
+        });
+      };
+
+      showTickerItem(0);
+
+      if (tickerItems.length > 1) {
+        var tickerActiveIndex = 0;
+        setInterval(function () {
+          tickerActiveIndex = (tickerActiveIndex + 1) % tickerItems.length;
+          showTickerItem(tickerActiveIndex);
+        }, 5000);
+      }
+    }
+  }
+
   var archiveList = document.getElementById('archiveList');
   var archiveEmptyNote = document.getElementById('archiveEmptyNote');
 

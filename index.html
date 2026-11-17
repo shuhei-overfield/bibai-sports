@@ -52,13 +52,29 @@
     <a href="#activities" class="hero-scroll" aria-label="次のセクションへスクロール"><i class="fa-solid fa-chevron-down"></i></a>
   </section>
 
-  <!-- ===== 最新のお知らせ（ファーストビュー直下のティッカー） ===== -->
-  <a href="#event-rhythm-squad" class="latest-ticker">
+  <!-- ===== 最新のお知らせ（ファーストビュー直下のティッカー） =====
+       各項目の data-expiry（YYYY-MM-DD）を過ぎると、script.js が
+       ページ読み込み時に自動でDOMから取り除く。運用メモ：
+       新しいお知らせを追加する場合は、下の <a class="latest-ticker-item">
+       ブロックをコピーして一番上に追加し、data-expiry を設定してください
+       （script.js・CSSの変更は不要）。 -->
+  <div class="latest-ticker" id="latestTicker">
     <i class="fa-solid fa-bell latest-ticker-bell" aria-hidden="true"></i>
-    <span class="latest-ticker-badge">NEW</span>
-    <span class="latest-ticker-text">最新の更新：140名参加！「リズムジャンプ＆アジリティ」イベントの開催報告と御礼を掲載しました</span>
-    <i class="fa-solid fa-chevron-right latest-ticker-arrow" aria-hidden="true"></i>
-  </a>
+    <div class="latest-ticker-track" id="latestTickerTrack">
+      <a href="#event-rhythm-squad" class="latest-ticker-item" data-expiry="2026-12-15">
+        <span class="latest-ticker-badge">NEW</span>
+        <span class="latest-ticker-text">140名参加！「リズムジャンプ＆アジリティ」イベントの開催報告と御礼</span>
+        <i class="fa-solid fa-chevron-right latest-ticker-arrow" aria-hidden="true"></i>
+      </a>
+      <a href="#training" class="latest-ticker-item" data-expiry="2026-12-31">
+        <span class="latest-ticker-badge">NEW</span>
+        <span class="latest-ticker-text">12月分のトレーニング室常駐スケジュールを公開しました</span>
+        <i class="fa-solid fa-chevron-right latest-ticker-arrow" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="latest-ticker-dots" id="latestTickerDots" aria-hidden="true"></div>
+    <p class="latest-ticker-empty" id="latestTickerEmpty" hidden>現在、新しいお知らせはありません</p>
+  </div>
 
   <!-- ===== 2. OUR ACTIVITIES（現在の主な活動） ===== -->
   <section class="section section--dark" id="activities">
